@@ -1,4 +1,6 @@
 
+# Heroes of Pymoli - Jeffrey Coen
+
 
 ```python
 # Dependencies
@@ -11,6 +13,7 @@ import numpy as np
 # Import the file
 filename = ('raw_data/purchase_data.json')
 heroes_df = pd.read_json(filename)
+
 # Printed in first run through but will remove later
 heroes_df.columns
 
@@ -22,6 +25,8 @@ heroes_df.columns
     Index(['Age', 'Gender', 'Item ID', 'Item Name', 'Price', 'SN'], dtype='object')
 
 
+
+# Player Count
 
 
 ```python
@@ -76,25 +81,19 @@ df_total_players
 
 
 ```python
-#Purchasing Analysis (Total)
-
-
-#Number of Unique Items
-
+# Number of Unique Items
 unique_items = heroes_df['Item ID'].nunique()
 
-
-#Average Purchase Price
+# Average Purchase Price
 average_price = round(heroes_df["Price"].mean(), 2)
 
-
-#Total Number of Purchases
+# Total Number of Purchases
 number_of_purchases = heroes_df["Item ID"].count()
 
-#Total Revenue
+# Total Revenue
 total_revenue = heroes_df["Price"].sum()
 
-
+# Build the DF 
 df_purchasing_analysis = pd.DataFrame({
     "Number of Unique Items": [unique_items],
     "Average Purchase Price": [average_price],
@@ -102,11 +101,9 @@ df_purchasing_analysis = pd.DataFrame({
     "Total Revenue": [total_revenue]
 })
 
-
+# Print the DF
 df_purchasing_analysis
 
-
-#unique_items.count()
 ```
 
 
@@ -154,22 +151,18 @@ df_purchasing_analysis
 
 
 ```python
-#Gender Demographics
-
-# Remember total_players from earlier
-
-#Percentage and Count of Male Players
+# Count of Male Players
 male_players = heroes_df.loc[heroes_df["Gender"] == "Male"].nunique()
 
-#Percentage and Count of Female Players
+# Count of Female Players
 female_players = heroes_df.loc[heroes_df["Gender"] == "Female"].nunique()
 
-#Percentage and Count of Other / Non-Disclosed
+# Count of Other / Non-Disclosed
 other_players = heroes_df.loc[heroes_df["Gender"] == "Other / Non-Disclosed"].nunique()
 
 # DF Gender Demographics
 df_gender_demographics = pd.DataFrame({
-    
+    # Use previous total players int for figuring out the percentage
     "Percentage of Players": [(male_players["SN"]/total_players*100).round(2), 
                               (female_players["SN"]/total_players*100).round(2), 
                               (other_players["SN"]/total_players*100).round(2)],
@@ -227,28 +220,24 @@ df_gender_demographics
 
 
 
-
-```python
-
-
-```
-
 # Purchasing Analysis (Gender)
 
 
 ```python
-
-```
-
-
-```python
+# Create New DF for gender analysis
 df = (heroes_df
+      # group DF by gender column
       .groupby(['Gender'], as_index = False)
-    .Price
+      .Price
+      # Perform calculations as directed by instructions
       .agg({'Count':len, 'Total': 'sum', 'Average': np.mean
            })
      )
+
+# Remove extra decimals as this is currency
 df['Average'] = round(df["Average"], 2)
+
+# Print that DF
 df
 
 
@@ -314,235 +303,20 @@ df
 
 
 ```python
+# Create new DF for age, group the age, count how many times each age appears
 age_df = (heroes_df
       .groupby(['Age'], as_index = False)
     .SN
       .agg({'Count':len, 
            })
      )
-
-age_df
+# Remove hash below to show counts of ages
+# age_df
 ```
 
 
-
-
-<div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Age</th>
-      <th>Count</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>7</td>
-      <td>19</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>8</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>9</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>10</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>11</td>
-      <td>9</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>12</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>13</td>
-      <td>11</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>14</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>15</td>
-      <td>47</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>16</td>
-      <td>23</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>17</td>
-      <td>17</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>18</td>
-      <td>24</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>19</td>
-      <td>22</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>20</td>
-      <td>98</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>21</td>
-      <td>43</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>22</td>
-      <td>68</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>23</td>
-      <td>57</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>24</td>
-      <td>70</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>25</td>
-      <td>67</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>26</td>
-      <td>13</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>27</td>
-      <td>19</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>28</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>29</td>
-      <td>21</td>
-    </tr>
-    <tr>
-      <th>23</th>
-      <td>30</td>
-      <td>18</td>
-    </tr>
-    <tr>
-      <th>24</th>
-      <td>31</td>
-      <td>16</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>32</td>
-      <td>11</td>
-    </tr>
-    <tr>
-      <th>26</th>
-      <td>33</td>
-      <td>11</td>
-    </tr>
-    <tr>
-      <th>27</th>
-      <td>34</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>28</th>
-      <td>35</td>
-      <td>12</td>
-    </tr>
-    <tr>
-      <th>29</th>
-      <td>36</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <th>30</th>
-      <td>37</td>
-      <td>9</td>
-    </tr>
-    <tr>
-      <th>31</th>
-      <td>38</td>
-      <td>9</td>
-    </tr>
-    <tr>
-      <th>32</th>
-      <td>39</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>33</th>
-      <td>40</td>
-      <td>14</td>
-    </tr>
-    <tr>
-      <th>34</th>
-      <td>42</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>35</th>
-      <td>43</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>36</th>
-      <td>45</td>
-      <td>1</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
-
 ```python
+# Create bins and group names in order to drop ages into categories
 bins = [6, 10, 14, 18, 22, 26, 30, 34, 38, 42, 46]
 group_names = [ '< 10', '10 - 14', '14 - 18', '18 - 22', '22 - 26', '26 - 30', '30 - 34', '34 - 38', '38 - 42', '42 - 46']
 
@@ -550,6 +324,7 @@ group_names = [ '< 10', '10 - 14', '14 - 18', '18 - 22', '22 - 26', '26 - 30', '
 
 
 ```python
+# Place ages into the categories
 categories = pd.cut(age_df['Age'], bins, labels=group_names)
 age_df['categories'] = pd.cut(age_df['Age'], bins, labels=group_names)
 #age_df
@@ -557,12 +332,11 @@ age_df['categories'] = pd.cut(age_df['Age'], bins, labels=group_names)
 
 
 ```python
+# Final age df is meant to merge the new age_df with the first DF, heroes_df
 final_age_df = pd.merge(age_df, heroes_df, on = "Age", how="outer")
 final_age_df
-#Purchase Count
-#Average Purchase Price
-#Total Purchase Value
-#Normalized Totals
+
+# Create grouped_age DF to group the categories
 grouped_age = (final_age_df
       .groupby(['categories'], as_index = False)
       .Price
@@ -574,7 +348,7 @@ grouped_age.sort_index(by='categories', ascending = True)
 
 ```
 
-    /Users/jeffreycoen/anaconda/envs/PythonData/lib/python3.6/site-packages/ipykernel/__main__.py:14: FutureWarning: by argument to sort_index is deprecated, pls use .sort_values(by=...)
+    /Users/jeffreycoen/anaconda/envs/PythonData/lib/python3.6/site-packages/ipykernel/__main__.py:13: FutureWarning: by argument to sort_index is deprecated, pls use .sort_values(by=...)
 
 
 
