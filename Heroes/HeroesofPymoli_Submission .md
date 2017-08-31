@@ -1,5 +1,8 @@
 
 # Heroes of Pymoli - Jeffrey Coen
+     - Players ages 18 - 26 account for over 50% of the revenue generated
+     - Men are four times as likely to play as compared to women, and spend nearly five times as much as their female counterparts
+     - Spending drops off significantly after player reaches 26, so a different marketing approach may be required for these older players
 
 
 ```python
@@ -101,9 +104,8 @@ df_purchasing_analysis = pd.DataFrame({
     "Total Revenue": [total_revenue]
 })
 
-# Print the DF
+# Print that DF
 df_purchasing_analysis
-
 ```
 
 
@@ -167,9 +169,10 @@ df_gender_demographics = pd.DataFrame({
                               (female_players["SN"]/total_players*100).round(2), 
                               (other_players["SN"]/total_players*100).round(2)],
     "Total Count": [male_players["SN"], female_players["SN"], other_players["SN"]]
-    
+  #Create the index on the side  
 },index = ['Male', 'Female', 'Other'])
 
+# Print that DF
 df_gender_demographics
 ```
 
@@ -239,8 +242,6 @@ df['Average'] = round(df["Average"], 2)
 
 # Print that DF
 df
-
-
 ```
 
 
@@ -327,7 +328,7 @@ group_names = [ '< 10', '10 - 14', '14 - 18', '18 - 22', '22 - 26', '26 - 30', '
 # Place ages into the categories
 categories = pd.cut(age_df['Age'], bins, labels=group_names)
 age_df['categories'] = pd.cut(age_df['Age'], bins, labels=group_names)
-#age_df
+
 ```
 
 
@@ -455,24 +456,7 @@ grouped_age.sort_index(by='categories', ascending = True)
 
 
 
-
-```python
-
-       
-
-```
-
-# Top Spenders
-
-
-```python
-#Identify the the top 5 spenders in the game by total purchase value, then list (in a table):
-
-#SN
-#Purchase Count
-#Average Purchase Price
-#Total Purchase Value
-```
+# Top 5 Spenders
 
 
 ```python
@@ -558,22 +542,7 @@ df.sort_index(by='Total', ascending = False).head(5)
 
 
 
-# Most Popular Items
-
-
-```python
-#Most Popular Items
-
-#Item ID
-
-#Item Name
-#Purchase Count
-#Item Price
-#Total Purchase Value
-
-
-    
-```
+# 5 Most Popular Items
 
 
 ```python
@@ -663,40 +632,11 @@ df.sort_index(by='Count', ascending = False).head(5)
 
 
 
-
-```python
-
-```
+# 5 Most Profitable Items
 
 
 ```python
 
-```
-
-
-```python
-
-```
-
-
-```python
-
-```
-
-
-
-# Most Profitable Items
-
-
-```python
-#Most Profitable Items
-
-#Identify the 5 most profitable items by total purchase value, then list (in a table):
-#Item ID
-#Item Name
-#Purchase Count
-#Item Price
-#Total Purchase Value
 
 df = (heroes_df
       .groupby(['Item Name'], as_index = False)
@@ -709,7 +649,7 @@ df['Price'] = round(df['Price'], 2)
 df.sort_index(by='Total', ascending = False).head(5)
 ```
 
-    /Users/jeffreycoen/anaconda/envs/PythonData/lib/python3.6/site-packages/ipykernel/__main__.py:18: FutureWarning: by argument to sort_index is deprecated, pls use .sort_values(by=...)
+    /Users/jeffreycoen/anaconda/envs/PythonData/lib/python3.6/site-packages/ipykernel/__main__.py:11: FutureWarning: by argument to sort_index is deprecated, pls use .sort_values(by=...)
 
 
 
@@ -780,13 +720,3 @@ df.sort_index(by='Total', ascending = False).head(5)
 </div>
 
 
-
-
-```python
-
-```
-
-
-```python
-
-```
