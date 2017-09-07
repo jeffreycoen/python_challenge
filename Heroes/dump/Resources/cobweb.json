@@ -1,0 +1,17 @@
+{
+  "biggestWeb": {
+    "item": "comb",
+    "biggerWeb": {
+      "items": ["glasses", "paperclip", "bubblegum"],
+      "smallerWeb": {
+        "item": "toothbrush",
+        "tinyWeb": {
+          "items": ["toenails", "lint", "wrapper", "homework"]
+        }
+      }
+    },
+    "otherBigWeb": {
+      "item": "headphones"
+    }
+  }
+}
